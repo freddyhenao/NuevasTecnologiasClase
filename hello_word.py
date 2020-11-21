@@ -29,7 +29,7 @@
 #     suma = suma + int(input("Ingrese numero"))
 
 # print(suma)
-
+|
 # while structure
 # num1 - 1 - 5
 #num2 - 5-9
