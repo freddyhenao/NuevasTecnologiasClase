@@ -1,0 +1,16 @@
+<!-- Parte 2 Clase insertar tabla en el bloque de Flask que cambia -->
+{% extends "layout.html" %}
+{% block content %}
+<form action="/update?id={{task.0}}" method="POST">
+    <div class="form-group">
+        <label>Task</label>
+        <input type="text"  value="{{task.1}}" class="form-control" id="task" name="task" aria-describedby="emailHelp">
+    </div>
+    <div class="form-group">
+        <label>Date</label>
+        <input type="string" value="{{task.2}}" class="form-control" id="date" name="date">
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}
+ 
