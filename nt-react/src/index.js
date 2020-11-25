@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles.css';
 import FirstComponent from './FirstComponent';
+import FormComponent from './FormComponent';
 //console.log("hello word")
 const divRoot = document.querySelector("#root");
 // ReactDOM.render(<FirstComponent x='Fahl' y='bebida' z='comida' edad=35></FirstComponent>,divRoot);
@@ -14,7 +15,7 @@ const data = {
     edad: '35',
     islive: true
 }
-ReactDOM.render(<FirstComponent datos={data}></FirstComponent>,divRoot);
+ReactDOM.render(<FormComponent></FormComponent> ,divRoot);
 
 
 //const divRoot = document.querySelector('#root');    // caracter # lo que hace es buscar el id con el nombre en este caso root en el html
