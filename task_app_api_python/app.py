@@ -1,6 +1,8 @@
+# from flask_cors import CORS, cross_origin permite configurar los permisos de los llamados a la base de datos 
+# para evitar los bloqueos de seguridad 
 from flask import Flask, render_template, request, redirect, url_for, json
 import mysql.connector
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS, cross_origin   
 
 
 
@@ -18,7 +20,7 @@ app.config['CORS_HEADERS'] = ['Content-Type']
 def toJson(data):
     tasks = []
     for i in data:
-        task = {'id':i[0],'task':i[1],'data':[2]}
+        task = {'id':i[0],'task':i[1],'date':i[2]}
         tasks.append(task)
     return tasks
 

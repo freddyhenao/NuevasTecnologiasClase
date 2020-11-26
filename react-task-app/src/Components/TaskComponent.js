@@ -1,20 +1,30 @@
-import React, {useEffect} from 'react';
+//  Este codigo es el encargado de consultar la API -Python y traer los datos para ser renderizados 
+
+import React, {useEffect, useState} from 'react';
 
 const TasksComponent= () => {
 
+    const [tasks, setTasks] = useState([])
     const fetchTasks = async() =>{
           const response = await fetch("http://localhost:5000/listtasks",
           { 
               method:'GET',
               headers:{
                 Accept:'aplication/json',
-                'Content-Type':'aplication/json',
-                'Access-Control-Allow-Origin': 'http://localhost:5000'
+                'Content-Type':'aplication/json',               
               }
           } 
           );
-          const data = await response.json(); 
-          console.log(data)
+          const dataResponse = await response.json(); 
+          const dataTasks = dataResponse.data.map((item)=>{
+              return <tr key={item.id.toString()}>
+              <td>{item.id}</td>
+              <td>{item.task}</td>
+              <td>{item.date}</td>
+            </tr>
+          });
+          setTasks(dataTasks)
+          
     }
     useEffect(()=>{
           fetchTasks()
@@ -25,28 +35,15 @@ const TasksComponent= () => {
       <table>
               <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Item Name</th>
-                    <th>Item Price</th>
+                    <th>Id</th>
+                    <th>Task</th>
+                    <th>Date</th>
                 </tr>
               </thead>
 
               <tbody>
-                <tr>
-                  <td>Alvin</td>
-                  <td>Eclair</td>
-                  <td>$0.87</td>
-                </tr>
-                <tr>
-                  <td>Alan</td>
-                  <td>Jellybean</td>
-                  <td>$3.76</td>
-                </tr>
-                <tr>
-                  <td>Jonathan</td>
-                  <td>Lollipop</td>
-                  <td>$7.00</td>
-                </tr>
+            {/*  se agrega en este punto el codio html para mostrar los datos */}
+              {tasks}
               </tbody>
             </table>
       </div>
