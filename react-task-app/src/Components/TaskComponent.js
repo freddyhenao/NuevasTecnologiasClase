@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+//
 const TasksComponent = () => {
     const apiBaseUrl = "http://localhost:4000";
     const [updateView, setUpdateView] = useState(true);
@@ -15,6 +15,7 @@ const TasksComponent = () => {
             [event.target.name]:event.target.value
         });
     }
+// obtener los datos de forma asincrona de la base de datos con metodo GET
     const fetchTasks = async () => {
         const response = await fetch(`${apiBaseUrl}/listtasks`,
             {
@@ -25,17 +26,30 @@ const TasksComponent = () => {
                 }
             }
         );
+    // fincion para renderizar los datos  obtenidos de la base de datos  y las peticiones generadas
+    // con los botones de Editar y Eliminar
         const dataResponse = await response.json();
         const dataTasks = dataResponse.data.map((item) => {
             return <tr key={item.id.toString()}>
                 <td>{item.id}</td>
                 <td>{item.task}</td>
                 <td>{item.date}</td>
+                <td>
+                    <div className="row">
+                        <div className="col s6">
+                            <button className="btn waves-effect waves-light indigo darken-1">Editar</button>                 
+                        </div>
+                        <div className="col s6">
+                            <button className="btn waves-effect waves-light red darken-2">Eliminar</button>
+                        </div>
+
+                    </div>
+                </td>
             </tr>
         });
         setTasks(dataTasks);
     }
-
+// funcion crear tarea 
     const createTask = async (event) => {
         event.preventDefault();
         const response = await fetch(`${apiBaseUrl}/createTask`,
@@ -52,6 +66,8 @@ const TasksComponent = () => {
         setUpdateView(!updateView);
         console.log(dataResponse);
     }
+
+// useEffet se ejecuta y actualiza si se realiza alugun cambio en este caso em la vista 
     useEffect(() => {
         fetchTasks();
     }, [updateView])
@@ -81,10 +97,12 @@ const TasksComponent = () => {
                         <th>Id</th>
                         <th>Task</th>
                         <th>Date</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
+    {/* fincion con los datos que cambian el funcion task */}
                     {tasks}
                 </tbody>
             </table>
