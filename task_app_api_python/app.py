@@ -30,20 +30,44 @@ def index():
     print(result)    
     return json.dumps({"data": toJson(result)})
 
+ #  funcion crear tarea 
 @app.route('/createTask', methods=['POST'])
 @cross_origin()
 def createTask():
     data = request.get_json(force=True)
-    print(data)
+    # print(data)
     sql = f"INSERT INTO tasks (task, date) VALUES ('{data['task']}', '{data['date']}')"
     cur = mydb.cursor()
     cur.execute(sql)
     mydb.commit()
     response = jsonify({'response': "ok"})
-    
     return response
-
-
-
+# fin de Funcion ... funcion crear tarea
+#  Inicio funcion ... Eliminar tarea 
+@app.route('/deleteTask', methods=['DELETE'])
+@cross_origin()
+def deleteTask():
+    data = request.get_json(force=True)
+    # print(data)
+    sql = f"DELETE FROM tasks WHERE id={data['id']}"
+    cur = mydb.cursor()
+    cur.execute(sql)
+    mydb.commit()
+    response = jsonify({'response': "ok"})
+    return response
+# fin de Funcion ... Eliminar tarea
+#  Inicio funcion ... Editar tarea 
+@app.route('/updateTask', methods=['PUT'])
+@cross_origin()
+def updateTask():
+    data = request.get_json(force=True)
+    # print(data)
+    sql = f"UPDATE tasks SET task='{data['task']}', date = '{ data['date']}' WHERE id = {data['id']}"
+    cur = mydb.cursor()
+    cur.execute(sql)
+    mydb.commit()
+    response = jsonify({'response': "ok"})
+    return response
+# fin de Funcion ... funcion Editar tarea
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=4000)
